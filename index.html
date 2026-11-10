@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>그로잉라운지 | 석남동 아트카페 · 복합문화공간</title>
+<meta name="description" content="인천 서해구 석남동 그로잉라운지 — 카페, 드로잉 라운지, 셀프 포토 스튜디오, 스터디·모임 룸을 갖춘 200평 복합문화공간">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf6ef; --surface:#ffffff; --ink:#2b2622; --muted:#6f655c; --line:#e7ddd0;
+    --accent:#3f7d5a; --accent-soft:#e3efe6; --warm:#d9824b; --warm-soft:#f7e6d8;
+    --sun:#f1c453; --sky:#9cc3d5;
+    --radius:20px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1c1a18; --surface:#262320; --ink:#f1ebe3; --muted:#b3a99e; --line:#3a352f;
+      --accent:#7cc39a; --accent-soft:#25352b; --warm:#eea173; --warm-soft:#3a2b21;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1c1a18; --surface:#262320; --ink:#f1ebe3; --muted:#b3a99e; --line:#3a352f;
+    --accent:#7cc39a; --accent-soft:#25352b; --warm:#eea173; --warm-soft:#3a2b21;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Gowun Batang",serif;line-height:1.3;margin:0}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  section{padding:96px 0}
+  .eyebrow{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+  .sec-title{font-size:clamp(28px,4vw,40px);margin-bottom:16px}
+  .sec-lead{color:var(--muted);max-width:620px;margin:0 0 48px}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:"Gowun Batang",serif;font-weight:700;font-size:20px;text-decoration:none}
+  .logo svg{width:30px;height:30px}
+  .nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-size:15px}
+  .nav ul a{text-decoration:none;color:var(--muted)}
+  .nav ul a:hover{color:var(--ink)}
+  .menu-btn{display:none;background:none;border:0;color:var(--ink);font-size:24px;cursor:pointer}
+
+  /* hero */
+  .hero{padding:72px 0 96px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(36px,6vw,64px);margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--accent);position:relative}
+  .hero p{font-size:18px;color:var(--muted);margin:0 0 32px;max-width:520px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+  .chip{padding:6px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:999px;font-weight:700;text-decoration:none;font-size:15px;transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{border:1.5px solid var(--ink)}
+  .hero-art{position:relative;aspect-ratio:1/1;max-width:480px;justify-self:center;width:100%}
+  .hero-art svg{width:100%;height:100%}
+
+  /* about */
+  .about{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .quote{font-family:"Gowun Batang",serif;font-size:clamp(24px,3vw,32px);line-height:1.5;border-left:4px solid var(--warm);padding-left:24px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .stat{background:var(--bg);border-radius:16px;padding:20px;text-align:center}
+  .stat b{display:block;font-family:"Gowun Batang",serif;font-size:30px;color:var(--accent)}
+  .stat span{font-size:14px;color:var(--muted)}
+
+  /* spaces */
+  .floor-tabs{display:flex;gap:8px;margin-bottom:32px}
+  .floor-tabs button{font:inherit;padding:10px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-weight:500}
+  .floor-tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  .card-art{height:150px;display:grid;place-items:center}
+  .card-art svg{width:72px;height:72px}
+  .card-body{padding:22px}
+  .card h3{font-size:21px;margin-bottom:8px}
+  .card p{margin:0;color:var(--muted);font-size:15px}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-bottom:10px}
+  [hidden]{display:none!important}
+
+  /* menu */
+  .menu{background:var(--warm-soft)}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .menu-box{background:var(--surface);border-radius:var(--radius);padding:28px}
+  .menu-box h3{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .menu-box ul{list-style:none;margin:0;padding:0}
+  .menu-box li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+  .menu-box li:last-child{border-bottom:0}
+  .menu-box li span:last-child{font-weight:700;white-space:nowrap}
+  .note{font-size:13px;color:var(--muted);margin-top:24px}
+
+  /* rooms */
+  .table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+  table{width:100%;border-collapse:collapse;min-width:560px}
+  th,td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--line);font-size:15px}
+  th{font-size:13px;color:var(--muted);font-weight:500;background:var(--bg)}
+  tr:last-child td{border-bottom:0}
+  .price-banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:var(--accent);color:#fff;border-radius:var(--radius);padding:28px 32px;margin-bottom:24px}
+  .price-banner b{font-family:"Gowun Batang",serif;font-size:30px}
+  .price-banner a{background:#fff;color:#2b2622;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:14px}
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:24px}
+  .feature{display:flex;gap:10px;align-items:flex-start;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .feature i{font-style:normal;font-size:20px;line-height:1.3}
+
+  /* info */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px}
+  .info-card h3{font-size:22px;margin-bottom:20px}
+  dl{margin:0;display:grid;grid-template-columns:96px 1fr;gap:14px 16px;font-size:15px}
+  dt{color:var(--muted)}
+  dd{margin:0}
+  .hours li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+  .hours{list-style:none;margin:0;padding:0;font-size:15px}
+  .hours .off{color:var(--warm);font-weight:700}
+  .map{margin-top:24px;border-radius:16px;overflow:hidden;background:var(--accent-soft);height:180px;position:relative}
+  .map svg{width:100%;height:100%}
+  .map-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .map-links a{font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none}
+  .map-links a:hover{border-color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  @media (max-width:860px){
+    section{padding:72px 0}
+    .hero-grid,.about-grid,.info-grid{grid-template-columns:1fr}
+    .hero-art{max-width:340px;order:-1}
+    .nav ul{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px}
+    .nav ul.open{display:flex}
+    .nav ul a{display:block;padding:12px 0}
+    .menu-btn{display:block}
+  }
+  @media (max-width:480px){
+    .wrap{padding:0 16px}
+    .stats{grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .stat b{font-size:24px}
+    dl{grid-template-columns:80px 1fr}
+    .info-card,.menu-box{padding:22px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap nav">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M16 25V14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M16 17c-4 0-6-3-6-6 4 0 6 3 6 6zM16 14c0-4 3-6 6-6 0 4-3 6-6 6z" fill="#fff"/></svg>
+      그로잉라운지
+    </a>
+    <button class="menu-btn" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+    <ul id="navlinks">
+      <li><a href="#about">소개</a></li>
+      <li><a href="#spaces">공간</a></li>
+      <li><a href="#menu">메뉴</a></li>
+      <li><a href="#rooms">룸 대관</a></li>
+      <li><a href="#visit">오시는 길</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Art Cafe · 복합문화공간 · 석남동</span>
+        <h1>그림으로 <em>마음이 자라는</em><br>200평의 라운지</h1>
+        <p>커피 한 잔과 함께 그림을 그리고, 사진을 찍고, 공부하고, 모이는 곳. 인천 석남동 그로잉라운지는 카페와 드로잉·포토 스튜디오, 스터디·모임 룸이 한 공간에 있는 아트카페예요.</p>
+        <div class="chips">
+          <span class="chip">☕ 2F 카페 라운지</span>
+          <span class="chip">🎨 3F 드로잉 라운지</span>
+          <span class="chip">📸 셀프 포토 스튜디오</span>
+          <span class="chip">📚 스터디·모임 룸</span>
+        </div>
+        <div class="btns">
+          <a class="btn btn-primary" href="#visit">방문 정보 보기 →</a>
+          <a class="btn btn-ghost" href="#rooms">룸 대관 안내</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="180" fill="var(--accent-soft)"/>
+          <circle cx="300" cy="105" r="38" fill="var(--sun)"/>
+          <!-- easel -->
+          <path d="M150 340 L200 120 L250 340" stroke="var(--ink)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M200 120 L200 350" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+          <rect x="118" y="135" width="164" height="128" rx="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="6"/>
+          <path d="M132 240 Q170 190 200 220 T268 200 L268 250 L132 250Z" fill="var(--accent)"/>
+          <circle cx="240" cy="170" r="16" fill="var(--warm)"/>
+          <path d="M140 205 q14 -24 30 0" stroke="var(--sky)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- cup -->
+          <g transform="translate(50 270)">
+            <path d="M0 10 h70 l-8 62 h-54z" fill="var(--warm)"/>
+            <path d="M70 22 q22 2 18 22 q-4 14 -22 12" stroke="var(--warm)" stroke-width="7" fill="none"/>
+            <path d="M18 -6 q8 -10 0 -20 M36 -6 q8 -10 0 -20 M54 -6 q8 -10 0 -20" stroke="var(--muted)" stroke-width="4" fill="none" stroke-linecap="round"/>
+          </g>
+          <!-- sprout -->
+          <g transform="translate(300 250)">
+            <path d="M-26 40 h52 l-8 50 h-36z" fill="var(--ink)"/>
+            <path d="M0 40 V0" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"/>
+            <path d="M0 14 c-22 0 -32 -16 -32 -32 22 0 32 16 32 32z" fill="var(--accent)"/>
+            <path d="M0 4 c0 -22 16 -32 32 -32 0 22 -16 32 -32 32z" fill="var(--accent)"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="eyebrow">About</span>
+        <h2 class="sec-title">그로잉라운지 이야기</h2>
+        <p class="quote">“그림으로 마음을 치유하고 싶다는 마음에서 시작했어요.”</p>
+      </div>
+      <div class="reveal">
+        <p>그로잉라운지는 건물 2층과 3층, 약 200평 규모의 아트카페이자 복합문화공간입니다. 2층은 넓은 테이블과 편안한 좌석이 있는 카페 라운지, 3층은 누구나 그림을 그릴 수 있는 드로잉 라운지와 조명 장비를 갖춘 셀프 포토 스튜디오로 꾸몄어요.</p>
+        <p>조용히 작업하기 좋은 룸과 미팅룸이 있어 공부나 회의에도 잘 맞고, 아이와 함께 그림을 그리는 가족 손님도 많이 찾아오십니다. 그림 원데이 클래스와 다양한 프로그램, 심리 상담도 함께 운영하고 있어요.</p>
+        <div class="stats">
+          <div class="stat"><b>200평</b><span>2·3층 전체</span></div>
+          <div class="stat"><b>60석</b><span>최대 착석</span></div>
+          <div class="stat"><b>8대</b><span>주차 가능</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACES -->
+  <section id="spaces">
+    <div class="wrap">
+      <span class="eyebrow">Spaces</span>
+      <h2 class="sec-title">층별 공간 안내</h2>
+      <p class="sec-lead">마시고, 그리고, 찍고, 모이는 네 가지 라운지. 원하는 시간에 맞춰 골라 쓰세요.</p>
+
+      <div class="floor-tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-floor="2">2F 카페 · 스터디</button>
+        <button role="tab" aria-selected="false" data-floor="3">3F 드로잉 · 포토</button>
+      </div>
+
+      <div class="cards" data-panel="2">
+        <article class="card">
+          <div class="card-art" style="background:var(--warm-soft)"><svg viewBox="0 0 64 64"><path d="M10 22h36l-4 30H14z" fill="var(--warm)"/><path d="M46 28c8 0 8 12 0 12" stroke="var(--warm)" stroke-width="4" fill="none"/><path d="M22 16q4-5 0-10M32 16q4-5 0-10" stroke="var(--muted)" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="card-body"><span class="tag">2F</span><h3>카페 메인 라운지</h3><p>12인석·8인석 대형 테이블부터 1~6인석까지. 넓고 조용해 작업하기 좋고, 주말엔 음악이 흐르는 여유로운 공간이에요.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-art" style="background:var(--accent-soft)"><svg viewBox="0 0 64 64"><rect x="10" y="12" width="44" height="34" rx="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="4"/><path d="M22 54h20M32 46v8" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M18 22h28M18 30h18" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="card-body"><span class="tag">2F</span><h3>스터디 & 워크 라운지</h3><p>문이 달린 1~12인 개별 룸. 세미나실·회의실·소모임 룸·1~4인 스터디 룸을 시간 단위로 예약할 수 있어요.</p></div>
+        </article>
+      </div>
+
+      <div class="cards" data-panel="3" hidden>
+        <article class="card">
+          <div class="card-art" style="background:var(--accent-soft)"><svg viewBox="0 0 64 64"><path d="M32 8c-14 0-24 10-24 22 0 10 8 12 12 10 4-2 6 2 6 6 0 6 4 10 10 10 12 0 20-12 20-24C56 18 46 8 32 8z" fill="var(--surface)" stroke="var(--accent)" stroke-width="4"/><circle cx="22" cy="24" r="4" fill="var(--warm)"/><circle cx="34" cy="18" r="4" fill="var(--sun)"/><circle cx="44" cy="28" r="4" fill="var(--sky)"/></svg></div>
+          <div class="card-body"><span class="tag">3F</span><h3>드로잉 라운지</h3><p>누구나 그림을 그릴 수 있는 체험 공간. 아이와 함께, 혹은 혼자서 마음 가는 대로 그려보세요. 그림 원데이 클래스도 열려요.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-art" style="background:var(--warm-soft)"><svg viewBox="0 0 64 64"><rect x="8" y="18" width="48" height="34" rx="6" fill="var(--warm)"/><rect x="22" y="12" width="20" height="8" rx="2" fill="var(--warm)"/><circle cx="32" cy="35" r="10" fill="var(--surface)"/><circle cx="32" cy="35" r="5" fill="var(--ink)"/></svg></div>
+          <div class="card-body"><span class="tag">3F</span><h3>셀프 포토 스튜디오</h3><p>촬영·조명 장비와 소니 α7 III 카메라 대여, 컬러 포토 프린터로 찍은 사진을 바로 인쇄할 수 있어요.</p></div>
+        </article>
+        <article class="card">
+          <div class="card-art" style="background:var(--accent-soft)"><svg viewBox="0 0 64 64"><rect x="8" y="12" width="20" height="26" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="4"/><rect x="36" y="12" width="20" height="26" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="4"/><path d="M4 52h56" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path d="M12 32l5-7 4 4 4-6" stroke="var(--warm)" stroke-width="3" fill="none"/></svg></div>
+          <div class="card-body"><span class="tag">3F</span><h3>갤러리 & 대관 홀</h3><p>작품 전시 갤러리와 통창이 있는 40평 공간. 3층 전체 대관 시 40명 이상 세미나·모임도 가능해요.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="wrap">
+      <span class="eyebrow">Menu</span>
+      <h2 class="sec-title">카페 메뉴</h2>
+      <p class="sec-lead">부담 없이 머물 수 있는 커피와 음료, 그리고 바삭한 크로플.</p>
+      <div class="menu-grid">
+        <div class="menu-box reveal">
+          <h3>☕ 커피 · 라떼</h3>
+          <ul>
+            <li><span>아메리카노</span><span>4,000</span></li>
+            <li><span>카페라떼</span><span>5,000</span></li>
+            <li><span>바닐라라떼</span><span>5,500</span></li>
+            <li><span>카라멜마끼아또</span><span>5,500</span></li>
+            <li><span>헤이즐넛라떼</span><span>5,500</span></li>
+            <li><span>코코넛라떼</span><span>5,500</span></li>
+            <li><span>카페모카</span><span>5,500</span></li>
+            <li><span>초코라떼</span><span>5,500</span></li>
+          </ul>
+        </div>
+        <div class="menu-box reveal">
+          <h3>🍓 스무디 · 에이드</h3>
+          <ul>
+            <li><span>요거트 스무디</span><span>6,000</span></li>
+            <li><span>딸기 스무디</span><span>6,000</span></li>
+            <li><span>망고 스무디</span><span>6,000</span></li>
+            <li><span>블루베리 스무디</span><span>6,000</span></li>
+            <li><span>레몬에이드</span><span>6,000</span></li>
+            <li><span>자몽에이드</span><span>6,000</span></li>
+            <li><span>블루베리에이드</span><span>6,000</span></li>
+            <li><span>밀크티</span><span>6,000</span></li>
+          </ul>
+        </div>
+        <div class="menu-box reveal">
+          <h3>🍵 티 · 디저트</h3>
+          <ul>
+            <li><span>얼그레이</span><span>4,500</span></li>
+            <li><span>페퍼민트</span><span>4,500</span></li>
+            <li><span>자스민 플라워</span><span>4,500</span></li>
+            <li><span>히비스커스</span><span>4,500</span></li>
+            <li><span>크로플</span><span>4,500</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">* 가격 단위: 원. 온라인에 공개된 정보를 바탕으로 정리한 것으로, 실제 메뉴와 가격은 매장 사정에 따라 달라질 수 있어요. 포장 가능.</p>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section id="rooms">
+    <div class="wrap">
+      <span class="eyebrow">Room Rental</span>
+      <h2 class="sec-title">스터디 · 모임 룸 대관</h2>
+      <p class="sec-lead">스터디, 회의, 세미나, 소모임, 파티까지. 도어가 있는 독립 룸을 시간 단위로 예약할 수 있어요.</p>
+
+      <div class="price-banner">
+        <div><div style="font-size:14px;opacity:.85">모든 룸 동일 요금 · 최소 1시간</div><b>1인 1시간 2,000원</b></div>
+        <a href="https://www.spacecloud.kr/space/52011" target="_blank" rel="noopener">스페이스클라우드에서 예약 →</a>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>공간</th><th>면적</th><th>인원</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td><b>10인 세미나실</b></td><td>26㎡ (약 8평)</td><td>4~12명</td><td>60인치 모니터, TV/프로젝터, 화이트보드, 개별 냉난방, 블라인드</td></tr>
+            <tr><td><b>회의실</b></td><td>20㎡ (약 6평)</td><td>2~5명</td><td>독립 룸</td></tr>
+            <tr><td><b>소모임 룸</b></td><td>17㎡ (약 5평)</td><td>3~6명</td><td>화이트보드, 모니터</td></tr>
+            <tr><td><b>워크·스터디 룸</b></td><td>10㎡ (약 3평)</td><td>2~4명</td><td>2~4인용 독립 룸</td></tr>
+            <tr><td><b>1~2인 스터디 룸</b></td><td>10㎡ (약 3평)</td><td>1~2명</td><td>1인용 책상 2개</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="features">
+        <div class="feature"><i>🏢</i><span>60평·40평 공간, 3층 전체 단독 대관 가능</span></div>
+        <div class="feature"><i>📽️</i><span>빔프로젝터 2대 · 복사/인쇄기</span></div>
+        <div class="feature"><i>📶</i><span>와이파이 · 넉넉한 콘센트</span></div>
+        <div class="feature"><i>🚻</i><span>남녀 구분 화장실</span></div>
+        <div class="feature"><i>💳</i><span>결제 즉시 예약 확정</span></div>
+        <div class="feature"><i>⚠️</i><span>엘리베이터 없음 (2·3층 계단 이용)</span></div>
+      </div>
+      <p class="note">* 예시: 10명이 90분 이용 시 1인 3,000원, 총 30,000원. 당일 취소는 50% 환불, 이용 8일 전~전날 취소는 100% 환불.</p>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit" style="padding-top:0">
+    <div class="wrap">
+      <span class="eyebrow">Visit</span>
+      <h2 class="sec-title">오시는 길 & 영업 안내</h2>
+      <p class="sec-lead">인천 2호선 석남역·서부여성회관역에서 가까워요. 주차도 할 수 있어요.</p>
+      <div class="info-grid">
+        <div class="info-card reveal">
+          <h3>📍 위치 · 연락처</h3>
+          <dl>
+            <dt>주소</dt><dd>인천광역시 서해구 건지로 269, 2층<br><span style="color:var(--muted);font-size:14px">(지번) 석남동 579-3</span></dd>
+            <dt>전화</dt><dd><a href="tel:050713833909">0507-1383-3909</a></dd>
+            <dt>교통</dt><dd>인천 2호선 서부여성회관역 도보 5~8분</dd>
+            <dt>주차</dt><dd>가능 (약 8대)</dd>
+            <dt>기타</dt><dd>네이버 예약 · 포장 · 반려견 동반 가능</dd>
+          </dl>
+          <div class="map" aria-hidden="true">
+            <svg viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="180" fill="var(--accent-soft)"/>
+              <path d="M0 120 H400" stroke="var(--surface)" stroke-width="18"/>
+              <path d="M150 0 V180" stroke="var(--surface)" stroke-width="14"/>
+              <path d="M0 40 Q200 70 400 30" stroke="var(--surface)" stroke-width="10" fill="none"/>
+              <text x="12" y="112" font-size="12" fill="var(--muted)" font-family="Noto Sans KR">건지로</text>
+              <circle cx="260" cy="92" r="16" fill="var(--warm)"/>
+              <circle cx="260" cy="92" r="6" fill="#fff"/>
+              <text x="282" y="97" font-size="14" font-weight="700" fill="var(--ink)" font-family="Noto Sans KR">그로잉라운지</text>
+            </svg>
+          </div>
+          <div class="map-links">
+            <a href="https://map.naver.com/p/search/%EA%B7%B8%EB%A1%9C%EC%9E%89%EB%9D%BC%EC%9A%B4%EC%A7%80%20%EC%84%9D%EB%82%A8" target="_blank" rel="noopener">네이버 지도</a>
+            <a href="https://map.kakao.com/?q=%EA%B7%B8%EB%A1%9C%EC%9E%89%EB%9D%BC%EC%9A%B4%EC%A7%80" target="_blank" rel="noopener">카카오맵</a>
+            <a href="https://www.facebook.com/growinglounge/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+        <div class="info-card reveal">
+          <h3>🕐 영업시간</h3>
+          <ul class="hours">
+            <li><span>월요일</span><span class="off">정기 휴무</span></li>
+            <li><span>화 ~ 목요일</span><span>12:00 – 21:30</span></li>
+            <li><span>금 ~ 일요일</span><span>11:30 – 21:30</span></li>
+            <li><span>라스트 오더</span><span>21:10</span></li>
+          </ul>
+          <p class="note">* 영업시간은 출처마다 조금씩 달라요. 방문 전 전화나 네이버 지도로 꼭 확인해 주세요. 룸 정기 이용자는 오픈 전 이용도 문의할 수 있어요.</p>
+          <div style="margin-top:28px;padding:20px;border-radius:16px;background:var(--accent-soft)">
+            <b style="font-family:'Gowun Batang',serif;font-size:18px">🎁 인천 청년 혜택</b>
+            <p style="margin:6px 0 0;font-size:15px;color:var(--muted)">인천 청년공간 동행가맹점 — 청년 대상 전 메뉴 10% 할인</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b style="color:var(--ink)">그로잉라운지 Growing Lounge</b><br>인천광역시 서해구 건지로 269, 2·3층 · 0507-1383-3909</div>
+    <div>이 페이지의 정보는 공개된 온라인 자료를 바탕으로 정리되었으며 실제와 다를 수 있습니다.</div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav
+  const btn=document.querySelector('.menu-btn'),links=document.getElementById('navlinks');
+  btn.addEventListener('click',()=>{const o=links.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+  links.addEventListener('click',e=>{if(e.target.tagName==='A'){links.classList.remove('open');btn.setAttribute('aria-expanded',false)}});
+  // floor tabs
+  document.querySelectorAll('.floor-tabs button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.floor-tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==b.dataset.floor);
+  }));
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
