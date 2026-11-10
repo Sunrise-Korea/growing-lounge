@@ -13,16 +13,19 @@
   :root{
     --bg:#faf6ef; --surface:#fff; --ink:#2b2622; --muted:#6f655c; --line:#e7ddd0;
     --accent:#3f7d5a; --accent-soft:#e3efe6; --warm:#d9824b; --warm-soft:#f7e6d8; --sun:#f1c453;
+    --ok:#2f8f55; --err:#c0492f;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#1c1a18; --surface:#262320; --ink:#f1ebe3; --muted:#b3a99e; --line:#3a352f;
       --accent:#7cc39a; --accent-soft:#25352b; --warm:#eea173; --warm-soft:#3a2b21;
+      --ok:#7cc39a; --err:#f08a72;
     }
   }
   :root[data-theme="dark"]{
     --bg:#1c1a18; --surface:#262320; --ink:#f1ebe3; --muted:#b3a99e; --line:#3a352f;
     --accent:#7cc39a; --accent-soft:#25352b; --warm:#eea173; --warm-soft:#3a2b21;
+    --ok:#7cc39a; --err:#f08a72;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -34,9 +37,11 @@
   /* top bar */
   .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:8px;height:56px;margin:0 -16px;padding:0 16px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font-family:"Gowun Batang",serif;font-weight:700;font-size:18px}
   .top svg{width:28px;height:28px}
+  .jump{margin-left:auto;display:flex;gap:4px;font-family:"Noto Sans KR",sans-serif;font-weight:500;font-size:13px}
+  .jump a{padding:6px 8px;border-radius:999px;color:var(--muted)}
 
   /* hero */
-  .hero{padding:28px 0 8px}
+  .hero{padding:20px 0 8px}
   .hero-art{background:var(--accent-soft);border-radius:24px;height:180px;display:grid;place-items:center;margin-bottom:24px;overflow:hidden}
   .hero-art svg{height:170px}
   .eyebrow{font-size:12px;letter-spacing:.12em;color:var(--accent);font-weight:700}
@@ -48,11 +53,11 @@
   .status{display:flex;align-items:center;gap:10px;margin:20px 0 0;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;font-size:15px}
   .dot{width:10px;height:10px;border-radius:50%;background:var(--muted);flex:none}
   .status.open .dot{background:#2fa35b;box-shadow:0 0 0 4px color-mix(in srgb,#2fa35b 25%,transparent)}
-  .status b{font-weight:700}
   .status span{color:var(--muted)}
 
-  section{padding:36px 0 0}
-  .sec-title{font-size:22px;margin-bottom:14px}
+  section{padding:40px 0 0;scroll-margin-top:56px}
+  .sec-title{font-size:22px;margin-bottom:6px}
+  .sec-lead{margin:0 0 14px;font-size:14px;color:var(--muted)}
 
   /* spaces: horizontal scroll */
   .scroller{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
@@ -61,31 +66,71 @@
   .space .ic{font-size:28px;line-height:1}
   .space h3{font-size:18px;margin:10px 0 4px}
   .space p{margin:0;font-size:14px;color:var(--muted)}
-  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:middle}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:middle;font-family:"Noto Sans KR",sans-serif}
 
-  /* menu tabs */
+  /* tabs + lists */
   .tabs{display:flex;gap:6px;margin-bottom:12px}
   .tabs button{flex:1;font:inherit;font-size:14px;font-weight:500;padding:9px 0;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
   .tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
   .list{list-style:none;margin:0;padding:4px 16px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
-  .list li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px}
+  .list li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px}
   .list li:last-child{border-bottom:0}
-  .list li span:last-child{font-weight:700;white-space:nowrap}
+  .list li > span:last-child{font-weight:700;white-space:nowrap}
   [hidden]{display:none!important}
   .note{font-size:12px;color:var(--muted);margin:10px 2px 0}
 
   /* rooms */
   .price{background:var(--accent);color:#fff;border-radius:20px;padding:20px}
   .price small{opacity:.85;font-size:13px}
-  .price b{display:block;font-family:"Gowun Batang",serif;font-size:26px;margin:2px 0 14px}
-  .price a{display:block;text-align:center;background:#fff;color:#2b2622;padding:12px;border-radius:999px;font-weight:700;font-size:15px}
+  .price b{display:block;font-family:"Gowun Batang",serif;font-size:26px;margin:2px 0 0}
   .rooms{margin-top:12px}
   .rooms li span:first-child b{display:block}
   .rooms li span:first-child small{color:var(--muted);font-size:13px}
-  .rooms li span:last-child{font-weight:500;color:var(--muted)}
+  .rooms li > span:last-child{font-weight:500;color:var(--muted)}
+
+  /* forms */
+  .form{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:12px}
+  .form h3{font-size:18px}
+  .field{display:grid;gap:4px}
+  .field label{font-size:13px;color:var(--muted);font-weight:500}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  input,select,textarea{font:inherit;font-size:16px;width:100%;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+  textarea{resize:vertical;min-height:72px}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+  .busy{font-size:13px;color:var(--muted);background:var(--bg);border-radius:12px;padding:10px 12px}
+  .busy b{color:var(--warm)}
+  .total{display:flex;justify-content:space-between;align-items:baseline;font-size:15px}
+  .total b{font-family:"Gowun Batang",serif;font-size:22px;color:var(--accent)}
+  .submit{font:inherit;font-weight:700;font-size:16px;height:50px;border:0;border-radius:14px;background:var(--accent);color:#fff;cursor:pointer}
+  .submit:disabled{opacity:.6;cursor:default}
+  .msg{font-size:14px;margin:0;min-height:0}
+  .msg.ok{color:var(--ok)} .msg.err{color:var(--err)}
+  .stars{display:flex;gap:2px}
+  .stars button{font-size:26px;line-height:1;background:none;border:0;padding:2px;cursor:pointer;color:var(--line)}
+  .stars button.on{color:var(--sun)}
+
+  /* classes */
+  .cls{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:10px}
+  .cls h3{font-size:18px;margin-bottom:4px}
+  .cls .meta{font-size:14px;color:var(--muted)}
+  .cls p{margin:8px 0 12px;font-size:14px}
+  .cls .foot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .seats{font-size:13px;font-weight:700;color:var(--accent)}
+  .seats.full{color:var(--err)}
+  .pill{font:inherit;font-size:14px;font-weight:700;padding:9px 16px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);cursor:pointer}
+  .pill:disabled{opacity:.4;cursor:default}
+  .empty{padding:18px;text-align:center;color:var(--muted);font-size:14px;background:var(--surface);border:1px dashed var(--line);border-radius:16px}
+
+  /* guestbook */
+  .gb{display:grid;gap:10px;margin-top:12px}
+  .gb-item{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+  .gb-head{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+  .gb-head b{color:var(--ink);font-size:14px}
+  .gb-item p{margin:6px 0 0;font-size:15px;white-space:pre-wrap;word-break:break-word}
+  .gb-star{color:var(--sun);letter-spacing:1px}
 
   /* info */
-  .info{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 16px}
+  .info{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 16px;margin:0}
   .row{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
   .row:last-child{border-bottom:0}
   .row dt{flex:0 0 64px;color:var(--muted)}
@@ -112,9 +157,10 @@
   <header class="top">
     <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M16 25V14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M16 17c-4 0-6-3-6-6 4 0 6 3 6 6zM16 14c0-4 3-6 6-6 0 4-3 6-6 6z" fill="#fff"/></svg>
     그로잉라운지
+    <nav class="jump"><a href="#menu">메뉴</a><a href="#classes">클래스</a><a href="#guestbook">방명록</a></nav>
   </header>
 
-  <section class="hero" style="padding-top:20px">
+  <section class="hero">
     <div class="hero-art" aria-hidden="true">
       <svg viewBox="0 0 400 300">
         <circle cx="320" cy="60" r="30" fill="var(--sun)"/>
@@ -145,7 +191,7 @@
 
   <section id="menu">
     <h2 class="sec-title">메뉴</h2>
-    <div class="tabs" role="tablist">
+    <div class="tabs" role="tablist" data-tabs="menu">
       <button role="tab" aria-selected="true" data-tab="coffee">커피</button>
       <button role="tab" aria-selected="false" data-tab="drink">스무디·에이드</button>
       <button role="tab" aria-selected="false" data-tab="tea">티·디저트</button>
@@ -171,28 +217,86 @@
   </section>
 
   <section id="rooms">
-    <h2 class="sec-title">룸 대관</h2>
+    <h2 class="sec-title">룸 예약</h2>
+    <p class="sec-lead">스터디·회의·소모임용 독립 룸을 시간 단위로 신청하세요. 매장에서 확인 후 연락드려요.</p>
     <div class="price">
       <small>모든 룸 같은 요금 · 최소 1시간</small>
       <b>1인 1시간 2,000원</b>
-      <a href="https://www.spacecloud.kr/space/52011" target="_blank" rel="noopener">스페이스클라우드에서 예약 →</a>
     </div>
-    <ul class="list rooms">
+    <ul class="list rooms" id="room-list">
       <li><span><b>10인 세미나실</b><small>모니터·프로젝터·화이트보드</small></span><span>4~12명</span></li>
       <li><span><b>회의실</b><small>독립 룸</small></span><span>2~5명</span></li>
       <li><span><b>소모임 룸</b><small>화이트보드·모니터</small></span><span>3~6명</span></li>
       <li><span><b>워크·스터디 룸</b><small>2~4인용</small></span><span>2~4명</span></li>
       <li><span><b>1~2인 스터디 룸</b><small>1인 책상 2개</small></span><span>1~2명</span></li>
     </ul>
-    <p class="note">엘리베이터가 없어서 2·3층은 계단으로 올라가요.</p>
+
+    <form class="form" id="book-form" novalidate>
+      <h3>예약 신청</h3>
+      <div class="field"><label for="b-room">룸</label><select id="b-room" required></select></div>
+      <div class="two">
+        <div class="field"><label for="b-date">날짜</label><input id="b-date" type="date" required></div>
+        <div class="field"><label for="b-people">인원</label><input id="b-people" type="number" inputmode="numeric" min="1" max="12" value="2" required></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="b-start">시작 시간</label><select id="b-start" required></select></div>
+        <div class="field"><label for="b-hours">이용 시간</label><select id="b-hours"><option value="1">1시간</option><option value="1.5">1시간 30분</option><option value="2" selected>2시간</option><option value="3">3시간</option><option value="4">4시간</option><option value="5">5시간</option><option value="6">6시간</option></select></div>
+      </div>
+      <div class="busy" id="b-busy">날짜와 룸을 고르면 이미 예약된 시간을 보여드려요.</div>
+      <div class="two">
+        <div class="field"><label for="b-name">이름</label><input id="b-name" autocomplete="name" maxlength="30" required></div>
+        <div class="field"><label for="b-phone">연락처</label><input id="b-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></div>
+      </div>
+      <div class="field"><label for="b-memo">요청 사항 (선택)</label><textarea id="b-memo" maxlength="300" placeholder="프로젝터 사용 등"></textarea></div>
+      <div class="total"><span>예상 금액</span><b id="b-total">8,000원</b></div>
+      <button class="submit" type="submit">예약 신청하기</button>
+      <p class="msg" id="b-msg" role="status"></p>
+    </form>
+    <p class="note">엘리베이터가 없어서 2·3층은 계단으로 올라가요. 신청은 매장 확인 후 확정돼요.</p>
+  </section>
+
+  <section id="classes">
+    <h2 class="sec-title">클래스</h2>
+    <p class="sec-lead">그림 원데이 클래스 일정이에요. 자리가 남아 있으면 바로 신청할 수 있어요.</p>
+    <div id="class-list"><div class="empty">클래스 일정을 불러오는 중이에요…</div></div>
+
+    <form class="form" id="class-form" novalidate hidden>
+      <h3 id="c-title">클래스 신청</h3>
+      <input type="hidden" id="c-id">
+      <div class="two">
+        <div class="field"><label for="c-name">이름</label><input id="c-name" autocomplete="name" maxlength="30" required></div>
+        <div class="field"><label for="c-phone">연락처</label><input id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" required></div>
+      </div>
+      <div class="field"><label for="c-people">인원</label><select id="c-people"><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+      <div class="field"><label for="c-memo">하고 싶은 말 (선택)</label><textarea id="c-memo" maxlength="300"></textarea></div>
+      <button class="submit" type="submit">신청하기</button>
+      <p class="msg" id="c-msg" role="status"></p>
+    </form>
+  </section>
+
+  <section id="guestbook">
+    <h2 class="sec-title">방명록</h2>
+    <p class="sec-lead">다녀가신 이야기를 남겨 주세요.</p>
+    <form class="form" id="gb-form" novalidate>
+      <div class="two">
+        <div class="field"><label for="g-name">닉네임</label><input id="g-name" maxlength="20" required></div>
+        <div class="field"><label>별점</label><div class="stars" id="g-stars" role="radiogroup" aria-label="별점"></div></div>
+      </div>
+      <div class="field"><label for="g-msg">내용</label><textarea id="g-msg" maxlength="300" required placeholder="커피도 맛있고 그림 그리기도 즐거웠어요!"></textarea></div>
+      <button class="submit" type="submit">남기기</button>
+      <p class="msg" id="g-res" role="status"></p>
+    </form>
+    <div class="gb" id="gb-list"></div>
   </section>
 
   <section id="visit">
     <h2 class="sec-title">영업시간 · 오시는 길</h2>
     <dl class="info">
-      <div class="row"><dt>월</dt><dd class="off">정기 휴무</dd></div>
-      <div class="row"><dt>화~목</dt><dd>12:00 – 21:30</dd></div>
-      <div class="row"><dt>금~일</dt><dd>11:30 – 21:30 <small style="color:var(--muted)">(L.O. 21:10)</small></dd></div>
+      <div id="hours-rows">
+        <div class="row"><dt>월</dt><dd class="off">정기 휴무</dd></div>
+        <div class="row"><dt>화~목</dt><dd>12:00 – 21:30</dd></div>
+        <div class="row"><dt>금~일</dt><dd>11:30 – 21:30 <small style="color:var(--muted)">(L.O. 21:10)</small></dd></div>
+      </div>
       <div class="row"><dt>주소</dt><dd>인천 서해구 건지로 269, 2·3층</dd></div>
       <div class="row"><dt>교통</dt><dd>인천 2호선 서부여성회관역 도보 5~8분</dd></div>
       <div class="row"><dt>주차</dt><dd>가능 (약 8대)</dd></div>
@@ -212,35 +316,285 @@
   <div class="bar-in">
     <a href="tel:050713833909">📞 전화</a>
     <a href="https://map.naver.com/p/search/%EA%B7%B8%EB%A1%9C%EC%9E%89%EB%9D%BC%EC%9A%B4%EC%A7%80%20%EC%84%9D%EB%82%A8" target="_blank" rel="noopener">📍 길찾기</a>
-    <a class="main" href="#rooms">룸 예약</a>
+    <a class="main" href="#book-form">룸 예약</a>
   </div>
 </nav>
 
 <script>
-  // menu tabs
-  const tabs=document.querySelectorAll('.tabs button');
-  tabs.forEach(b=>b.addEventListener('click',()=>{
-    tabs.forEach(x=>x.setAttribute('aria-selected',x===b));
-    document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==b.dataset.tab);
-  }));
+/* ---------- Supabase (공개 anon 키: 브라우저에 노출돼도 되는 키, 권한은 RLS로 제한) ---------- */
+const SUPA_URL = 'https://dayssjdzkmppkjfcbcwn.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRheXNzamR6a21wcGtqZmNiY3duIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMTYyNDUsImV4cCI6MjEwOTg5MjI0NX0.kCOAw0SjEjYyQrrnWoOpj7xkuHnQYqqlTaSpmwFzx9Y';
 
-  // open / closed status (Korea time)
-  (function(){
-    const now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
-    const day=now.getDay(), mins=now.getHours()*60+now.getMinutes();
-    const hours=d=>d===1?null:(d>=2&&d<=4?[720,1290]:[690,1290]); // Mon closed
-    const fmt=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
-    const names=['일','월','화','수','목','금','토'];
-    const el=document.getElementById('status'),main=document.getElementById('st-main'),sub=document.getElementById('st-sub');
-    const t=hours(day);
-    if(t&&mins>=t[0]&&mins<t[1]){
-      el.classList.add('open');main.textContent='지금 영업 중';sub.textContent='· '+fmt(t[1])+'까지';return;
-    }
-    if(t&&mins<t[0]){main.textContent='오늘 '+fmt(t[0])+' 오픈';sub.textContent='· 지금은 준비 중';return;}
-    let d=(day+1)%7,n=1; while(!hours(d)){d=(d+1)%7;n++}
-    main.textContent='영업 종료';
-    sub.textContent='· '+(n===1?'내일':names[d]+'요일')+' '+fmt(hours(d)[0])+' 오픈';
-  })();
+async function api(path, {method='GET', body}={}) {
+  const res = await fetch(SUPA_URL + '/rest/v1/' + path, {
+    method,
+    headers: {
+      apikey: SUPA_KEY, Authorization: 'Bearer ' + SUPA_KEY,
+      'Content-Type': 'application/json', Prefer: 'return=minimal'
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!res.ok) {
+    let m = '요청을 처리하지 못했어요. 잠시 후 다시 시도해 주세요.';
+    try { const j = await res.json(); if (j.message && /[가-힣]/.test(j.message)) m = j.message; } catch(e){}
+    throw new Error(m);
+  }
+  return res.status === 204 || res.status === 201 ? null : res.json();
+}
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const won = n => n.toLocaleString('ko-KR') + '원';
+const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
+const fmt = m => String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+const DAYS = ['일','월','화','수','목','금','토'];
+const kstNow = () => new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Seoul'}));
+const ymd = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const cleanPhone = s => s.replace(/[^0-9-]/g,'');
+const el = (tag, attrs={}, ...kids) => { const e = document.createElement(tag); Object.assign(e, attrs); kids.forEach(k => e.append(k)); return e; };
+function setMsg(node, text, ok){ node.textContent = text; node.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('[data-tabs]').forEach(group => {
+  const btns = group.querySelectorAll('button');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.setAttribute('aria-selected', x === b));
+    group.parentElement.querySelectorAll('[data-panel]').forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
+  }));
+});
+
+/* ---------- 영업시간 + 영업 상태 ---------- */
+// dow -> [open, close] (분) 또는 null(휴무). DB에서 못 불러오면 이 기본값 사용
+let HOURS = {0:[690,1290],1:null,2:[720,1290],3:[720,1290],4:[720,1290],5:[690,1290],6:[690,1290]};
+
+function renderStatus(){
+  const now = kstNow(), day = now.getDay(), mins = now.getHours()*60 + now.getMinutes();
+  const box = $('status'), main = $('st-main'), sub = $('st-sub');
+  box.classList.remove('open');
+  const t = HOURS[day];
+  if (t && mins >= t[0] && mins < t[1]) { box.classList.add('open'); main.textContent = '지금 영업 중'; sub.textContent = '· ' + fmt(t[1]) + '까지'; return; }
+  if (t && mins < t[0]) { main.textContent = '오늘 ' + fmt(t[0]) + ' 오픈'; sub.textContent = '· 지금은 준비 중'; return; }
+  let d = (day+1)%7, n = 1; while (!HOURS[d] && n < 7) { d = (d+1)%7; n++; }
+  main.textContent = '영업 종료';
+  sub.textContent = HOURS[d] ? '· ' + (n===1 ? '내일' : DAYS[d]+'요일') + ' ' + fmt(HOURS[d][0]) + ' 오픈' : '';
+}
+
+async function loadHours(){
+  try {
+    const rows = await api('business_hours?select=*&order=dow');
+    if (!rows.length) return;
+    HOURS = {};
+    rows.forEach(r => HOURS[r.dow] = r.is_closed ? null : [toMin(r.open_time), toMin(r.close_time)]);
+    // 같은 시간대인 요일끼리 묶어서 표시 (월~일 순)
+    const order = [1,2,3,4,5,6,0], groups = [];
+    order.forEach(d => {
+      const r = rows.find(x => x.dow === d); if (!r) return;
+      const key = r.is_closed ? 'off' : r.open_time + r.close_time + (r.last_order||'');
+      const last = groups[groups.length-1];
+      if (last && last.key === key) last.days.push(d); else groups.push({key, days:[d], r});
+    });
+    const box = $('hours-rows'); box.textContent = '';
+    groups.forEach(g => {
+      const label = g.days.length > 1 ? DAYS[g.days[0]] + '~' + DAYS[g.days[g.days.length-1]] : DAYS[g.days[0]];
+      const dd = g.r.is_closed ? el('dd', {className:'off', textContent:'정기 휴무'})
+        : el('dd', {textContent: g.r.open_time.slice(0,5) + ' – ' + g.r.close_time.slice(0,5) + ' '},
+             ...(g.r.last_order ? [el('small', {textContent:'(L.O. ' + g.r.last_order.slice(0,5) + ')', style:'color:var(--muted)'})] : []));
+      box.append(el('div', {className:'row'}, el('dt', {textContent: label}), dd));
+    });
+    renderStatus(); fillStartTimes(); loadBusy();
+  } catch(e) { /* 기본값 유지 */ }
+}
+
+/* ---------- 메뉴 ---------- */
+async function loadMenu(){
+  try {
+    const rows = await api('menu_items?select=category,name,price&order=sort_order');
+    if (!rows.length) return;
+    ['coffee','drink','tea'].forEach(cat => {
+      const items = rows.filter(r => r.category === cat);
+      if (!items.length) return;
+      const ul = document.querySelector('[data-panel="'+cat+'"]'); ul.textContent = '';
+      items.forEach(r => ul.append(el('li', {}, el('span', {textContent:r.name}), el('span', {textContent:r.price.toLocaleString('ko-KR')}))));
+    });
+  } catch(e) { /* 기본 메뉴 유지 */ }
+}
+
+/* ---------- 룸 예약 ---------- */
+let ROOMS = [
+  {id:'seminar', name:'10인 세미나실', min_people:4, max_people:12, description:'모니터·프로젝터·화이트보드', price_per_person_hour:2000},
+  {id:'meeting', name:'회의실', min_people:2, max_people:5, description:'독립 룸', price_per_person_hour:2000},
+  {id:'group', name:'소모임 룸', min_people:3, max_people:6, description:'화이트보드·모니터', price_per_person_hour:2000},
+  {id:'work', name:'워크·스터디 룸', min_people:2, max_people:4, description:'2~4인용', price_per_person_hour:2000},
+  {id:'study', name:'1~2인 스터디 룸', min_people:1, max_people:2, description:'1인 책상 2개', price_per_person_hour:2000}
+];
+const room = () => ROOMS.find(r => r.id === $('b-room').value) || ROOMS[0];
+
+function fillRooms(){
+  const sel = $('b-room'), keep = sel.value; sel.textContent = '';
+  ROOMS.forEach(r => sel.append(el('option', {value:r.id, textContent: r.name + ' (' + r.min_people + '~' + r.max_people + '명)'})));
+  if (keep) sel.value = keep;
+  const ul = $('room-list'); ul.textContent = '';
+  ROOMS.forEach(r => ul.append(el('li', {}, el('span', {}, el('b', {textContent:r.name}), el('small', {textContent:r.description||''})), el('span', {textContent:r.min_people+'~'+r.max_people+'명'}))));
+}
+function fillStartTimes(){
+  const sel = $('b-start'), keep = sel.value, d = new Date($('b-date').value + 'T00:00');
+  const t = HOURS[d.getDay()]; sel.textContent = '';
+  if (!t) { sel.append(el('option', {value:'', textContent:'휴무일이에요'})); return; }
+  for (let m = t[0]; m + 60 <= t[1]; m += 30) sel.append(el('option', {value:fmt(m), textContent:fmt(m)}));
+  if ([...sel.options].some(o => o.value === keep)) sel.value = keep;
+}
+function updateTotal(){
+  const n = Math.max(0, +$('b-people').value || 0), h = +$('b-hours').value;
+  $('b-total').textContent = won(n * h * room().price_per_person_hour);
+  $('b-people').min = room().min_people; $('b-people').max = room().max_people;
+}
+async function loadBusy(){
+  const date = $('b-date').value, box = $('b-busy');
+  if (!HOURS[new Date(date + 'T00:00').getDay()]) { box.textContent = '선택한 날은 정기 휴무일이에요. 다른 날을 골라 주세요.'; return; }
+  try {
+    const rows = await api('rpc/room_busy_slots', {method:'POST', body:{p_date: date}});
+    const mine = (rows||[]).filter(r => r.room_id === $('b-room').value);
+    box.textContent = '';
+    if (!mine.length) { box.textContent = '이 날은 아직 예약이 없어요. 원하는 시간에 신청하세요.'; return; }
+    box.append('이미 예약된 시간: ', el('b', {textContent: mine.map(r => r.start_time.slice(0,5) + '–' + r.end_time.slice(0,5)).join(', ')}));
+  } catch(e) { box.textContent = '예약 현황을 불러오지 못했어요. 신청은 할 수 있어요.'; }
+}
+
+function initBooking(){
+  // 기본 날짜: 오늘부터 가장 가까운 영업일 (오늘 영업이 끝났으면 다음 날)
+  const now = kstNow(), today = ymd(now);
+  $('b-date').min = today;
+  let d = new Date(now); d.setHours(0,0,0,0);
+  for (let i = 0; i < 8; i++) {
+    const t = HOURS[d.getDay()];
+    if (t && !(i === 0 && now.getHours()*60 + now.getMinutes() + 60 > t[1])) break;
+    d.setDate(d.getDate() + 1);
+  }
+  $('b-date').value = ymd(d);
+  fillRooms(); fillStartTimes(); updateTotal(); loadBusy();
+  $('b-room').addEventListener('change', () => { updateTotal(); loadBusy(); });
+  $('b-date').addEventListener('change', () => { fillStartTimes(); loadBusy(); });
+  $('b-people').addEventListener('input', updateTotal);
+  $('b-hours').addEventListener('change', updateTotal);
+
+  $('book-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const msg = $('b-msg'), btn = e.target.querySelector('.submit'), r = room();
+    const people = +$('b-people').value, name = $('b-name').value.trim(), phone = cleanPhone($('b-phone').value);
+    if (!$('b-start').value) return setMsg(msg, '휴무일에는 예약할 수 없어요.');
+    if (people < r.min_people || people > r.max_people) return setMsg(msg, r.name + '은(는) ' + r.min_people + '~' + r.max_people + '명까지 이용할 수 있어요.');
+    if (!name) return setMsg(msg, '이름을 입력해 주세요.');
+    if (!/^[0-9-]{9,14}$/.test(phone)) return setMsg(msg, '연락처를 정확히 입력해 주세요.');
+    btn.disabled = true; setMsg(msg, '신청 중…', true);
+    try {
+      await api('room_bookings', {method:'POST', body:{
+        room_id: r.id, booking_date: $('b-date').value, start_time: $('b-start').value,
+        hours: +$('b-hours').value, people, name, phone, memo: $('b-memo').value.trim() || null
+      }});
+      setMsg(msg, '✅ 예약 신청이 접수됐어요! 매장에서 확인 후 ' + phone + '(으)로 연락드릴게요.', true);
+      $('b-memo').value = ''; loadBusy();
+    } catch(err) { setMsg(msg, err.message); }
+    btn.disabled = false;
+  });
+}
+
+async function loadRooms(){
+  try {
+    const rows = await api('rooms?select=*&order=sort_order');
+    if (rows.length) { ROOMS = rows; fillRooms(); updateTotal(); loadBusy(); }
+  } catch(e) { /* 기본 룸 유지 */ }
+}
+
+/* ---------- 클래스 ---------- */
+async function loadClasses(){
+  const box = $('class-list');
+  try {
+    const rows = await api('rpc/class_list', {method:'POST', body:{}});
+    box.textContent = '';
+    if (!rows.length) { box.append(el('div', {className:'empty', textContent:'지금은 예정된 클래스가 없어요. 곧 새 일정이 올라와요!'})); return; }
+    rows.forEach(c => {
+      const d = new Date(c.class_date + 'T00:00'), full = c.seats_left <= 0;
+      const btn = el('button', {className:'pill', type:'button', textContent: full ? '마감' : '신청', disabled: full});
+      btn.addEventListener('click', () => openClassForm(c));
+      box.append(el('div', {className:'cls'},
+        el('h3', {textContent:c.title}),
+        el('div', {className:'meta', textContent: (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + DAYS[d.getDay()] + ') ' + c.start_time.slice(0,5) + ' · ' + c.duration_min + '분 · ' + (c.price ? won(c.price) : '무료')}),
+        ...(c.description ? [el('p', {textContent:c.description})] : []),
+        el('div', {className:'foot'}, el('span', {className:'seats' + (full ? ' full' : ''), textContent: full ? '자리가 모두 찼어요' : '남은 자리 ' + c.seats_left + ' / ' + c.capacity}), btn)
+      ));
+    });
+  } catch(e) { box.textContent = ''; box.append(el('div', {className:'empty', textContent:'클래스 일정을 불러오지 못했어요. 전화로 문의해 주세요.'})); }
+}
+function openClassForm(c){
+  const f = $('class-form'); f.hidden = false;
+  $('c-id').value = c.id; $('c-title').textContent = c.title + ' 신청';
+  const sel = $('c-people'); sel.textContent = '';
+  for (let i = 1; i <= Math.min(4, c.seats_left); i++) sel.append(el('option', {value:i, textContent:i + '명'}));
+  $('c-msg').textContent = '';
+  f.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(() => $('c-name').focus({preventScroll:true}), 300);
+}
+$('class-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('c-msg'), btn = e.target.querySelector('.submit');
+  const name = $('c-name').value.trim(), phone = cleanPhone($('c-phone').value);
+  if (!name) return setMsg(msg, '이름을 입력해 주세요.');
+  if (!/^[0-9-]{9,14}$/.test(phone)) return setMsg(msg, '연락처를 정확히 입력해 주세요.');
+  btn.disabled = true; setMsg(msg, '신청 중…', true);
+  try {
+    await api('class_signups', {method:'POST', body:{class_id:+$('c-id').value, name, phone, people:+$('c-people').value, memo:$('c-memo').value.trim() || null}});
+    setMsg(msg, '✅ 신청이 접수됐어요! 확정되면 연락드릴게요.', true);
+    $('c-memo').value = ''; loadClasses();
+  } catch(err) { setMsg(msg, err.message); }
+  btn.disabled = false;
+});
+
+/* ---------- 방명록 ---------- */
+let rating = 5;
+function drawStars(){
+  const box = $('g-stars'); box.textContent = '';
+  for (let i = 1; i <= 5; i++) {
+    const b = el('button', {type:'button', textContent:'★', className: i <= rating ? 'on' : ''});
+    b.setAttribute('role','radio'); b.setAttribute('aria-checked', i === rating); b.setAttribute('aria-label', i + '점');
+    b.addEventListener('click', () => { rating = i; drawStars(); });
+    box.append(b);
+  }
+}
+async function loadGuestbook(){
+  const box = $('gb-list');
+  try {
+    const rows = await api('guestbook?select=nickname,message,rating,created_at&order=created_at.desc&limit=20');
+    box.textContent = '';
+    if (!rows.length) { box.append(el('div', {className:'empty', textContent:'아직 글이 없어요. 첫 방명록을 남겨 주세요!'})); return; }
+    rows.forEach(r => {
+      const d = new Date(r.created_at);
+      box.append(el('div', {className:'gb-item'},
+        el('div', {className:'gb-head'},
+          el('span', {}, el('b', {textContent:r.nickname}), ' ', el('span', {className:'gb-star', textContent:'★'.repeat(r.rating||0)})),
+          el('span', {textContent:(d.getMonth()+1) + '.' + d.getDate()})),
+        el('p', {textContent:r.message})));
+    });
+  } catch(e) { box.textContent = ''; box.append(el('div', {className:'empty', textContent:'방명록을 불러오지 못했어요.'})); }
+}
+$('gb-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const res = $('g-res'), btn = e.target.querySelector('.submit');
+  const nickname = $('g-name').value.trim(), message = $('g-msg').value.trim();
+  if (!nickname) return setMsg(res, '닉네임을 입력해 주세요.');
+  if (!message) return setMsg(res, '내용을 입력해 주세요.');
+  btn.disabled = true;
+  try {
+    await api('guestbook', {method:'POST', body:{nickname, message, rating}});
+    setMsg(res, '✅ 남겨 주셔서 고마워요!', true);
+    $('g-msg').value = ''; loadGuestbook();
+  } catch(err) { setMsg(res, err.message); }
+  btn.disabled = false;
+});
+
+/* ---------- 시작 ---------- */
+renderStatus();
+initBooking();
+drawStars();
+loadHours(); loadMenu(); loadRooms(); loadClasses(); loadGuestbook();
 </script>
 </body>
 </html>
